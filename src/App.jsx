@@ -17,7 +17,6 @@ const App = () => {
   const [createNote, setCreateNote] = useState(false);
   const [sendNoteId, setSendNoteId] = useState(undefined);
   const [notesQuantity, setNotesQuantity] = useState(-1);
-  const [noteGridArr, setNoteGridArr] = useState([]);
 
   const storedNotes = localStorage.getItem("notes");
   const notes = storedNotes ? JSON.parse(storedNotes) : [];
@@ -88,20 +87,6 @@ const App = () => {
     setNotesQuantity(updatedNotes.length);
   }
 
-  function searchNote(value) {
-    // const tokens = value.toLowerCase().split(" ");
-    // const updatedNotesGrid = notes.map((note) => {
-    //   const noteMatches = tokens.every((token) => {
-    //     note.head.toLowerCase().includes(token) ||
-    //       note.body.toLowerCase().includes(token);
-    //   });
-    //   return {
-    //     ...note,
-    //     highlight: noteMatches,
-    //   };
-    // });
-  }
-
   return (
     <>
       <header>
@@ -109,7 +94,7 @@ const App = () => {
           <img src={LogoMobile} alt="" />
         </div>
 
-        <SearchBar search={searchNote} />
+        <SearchBar />
       </header>
 
       <section id="note-section">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SearchBar = ({ search }) => {
+const SearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   function handleClear() {
@@ -12,10 +12,6 @@ const SearchBar = ({ search }) => {
     }
 
     searchBar.value = "";
-  }
-
-  function handleOnChange(e) {
-    search(e.target.value);
   }
 
   return (
@@ -31,7 +27,6 @@ const SearchBar = ({ search }) => {
         placeholder="Search notes"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onInput={handleOnChange}
       />
       <button
         type="button"
