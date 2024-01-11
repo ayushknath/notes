@@ -16,10 +16,10 @@ import LogoMobile from "./assets/logo-mobile.svg";
 const App = () => {
   const [createNote, setCreateNote] = useState(false);
   const [sendNoteId, setSendNoteId] = useState(undefined);
-  const [notesQuantity, setNotesQuantity] = useState(-1);
 
   const storedNotes = localStorage.getItem("notes");
   const notes = storedNotes ? JSON.parse(storedNotes) : [];
+  const [notesQuantity, setNotesQuantity] = useState(notes.length);
   const noteGrid = notes.map((note) => (
     <Note
       key={note.id}
@@ -33,27 +33,20 @@ const App = () => {
   ));
 
   function saveNote(noteId = undefined) {
-    let noteExists = false;
     const noteObj = {};
     const noteHead = document.getElementById("note-header").value;
     const noteBody = document.getElementById("note-body").value;
 
-    notes.forEach((note) => {
-      if (note.id === noteId) {
-        noteExists = true;
-        setSendNoteId(undefined);
-        note.head = noteHead;
-        note.body = noteBody;
-      }
-    });
-
-    if (!noteExists) {
+    if (!noteId) {
       noteObj.id = notes.length + 1;
       noteObj.head = noteHead;
       noteObj.body = noteBody;
-
       notes.push(noteObj);
       setNotesQuantity(notes.length);
+    } else {
+      notes[noteId - 1].head = noteHead;
+      notes[noteId - 1].body = noteBody;
+      setSendNoteId(undefined);
     }
 
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -62,6 +55,7 @@ const App = () => {
 
   function discardNote() {
     setCreateNote(false);
+    setSendNoteId(undefined);
   }
 
   function editNote(noteId) {
@@ -79,10 +73,13 @@ const App = () => {
   }
 
   function deleteNote(noteId) {
+    const index = noteId - 1;
     const updatedNotes = notes.filter((note) => note.id !== noteId);
-    updatedNotes.forEach((note, index) => {
-      note.id = index + 1;
-    });
+
+    for (let i = index; i < updatedNotes.length; i++) {
+      updatedNotes[i].id = i + 1;
+    }
+
     localStorage.setItem("notes", JSON.stringify(updatedNotes));
     setNotesQuantity(updatedNotes.length);
   }
@@ -91,20 +88,26 @@ const App = () => {
     <>
       <header>
         <div className="logo">
-          <img src={LogoMobile} alt="" />
+          <img src={LogoMobile} alt="Notes logo" />
         </div>
 
         <SearchBar />
       </header>
 
-      <section id="note-section">
+      <main id="note-section">
         <div className="note-initialiser" onClick={() => setCreateNote(true)}>
           <FontAwesomeIcon icon="fa-solid fa-pen" />
           Write a note
         </div>
 
-        <div className="note-grid">{notesQuantity ? noteGrid : ""}</div>
-      </section>
+        <div className="note-grid">
+          {notesQuantity ? (
+            noteGrid
+          ) : (
+            <p id="note-grid-empty">No notes present</p>
+          )}
+        </div>
+      </main>
 
       {createNote && (
         <>

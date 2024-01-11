@@ -144,13 +144,19 @@ header {
 }
 
 .note-initialiser > :first-child {
-  margin-inline-end: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .note-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 2rem;
+}
+
+#note-grid-empty {
+  grid-column: 1 / 4;
+  text-align: center;
+  color: var(--text-search-bar);
 }
 
 .note {
@@ -236,15 +242,10 @@ header {
 }
 
 .create-actions {
-  justify-content: space-between;
+  gap: 1.25rem;
+  justify-content: flex-end;
   padding-inline: 1.75rem;
   padding-block: 0.75rem;
-}
-
-.create-actions > div {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
 }
 
 .create-actions button {
@@ -311,17 +312,21 @@ header {
     gap: 2rem;
   }
 
+  #note-grid-empty {
+    grid-column: 1 / 2;
+  }
+
   /* Create note */
   #create-note {
     width: 90vw;
     padding-inline: 1rem;
   }
 
-  .create-note-actions {
+  .create-actions {
     padding-inline: 1rem;
   }
 
-  .create-note-actions > div {
+  .create-actions {
     gap: 1rem;
   }
 }
