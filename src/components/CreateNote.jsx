@@ -1,4 +1,4 @@
-const CreateNote = ({ save, discard, noteId }) => {
+const CreateNote = ({ save, noteId }) => {
   return (
     <div id="create-note">
       <input
@@ -14,9 +14,6 @@ const CreateNote = ({ save, discard, noteId }) => {
       ></textarea>
 
       <div className="note-actions create-actions">
-        <button type="button" className="discard-note" onClick={discard}>
-          Discard
-        </button>
         <button
           type="button"
           className="save-note"
