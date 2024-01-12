@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Note = ({ id, head, body, edit, noteDelete, highlight }) => {
+const Note = ({ id, head, body, edit, noteDelete }) => {
   const [noteId, setNoteId] = useState(id);
 
   function handleOnClickEdit() {
@@ -13,7 +13,7 @@ const Note = ({ id, head, body, edit, noteDelete, highlight }) => {
   }
 
   return (
-    <div className={`note ${highlight ? "highlight" : ""}`}>
+    <div className="note">
       <h1>{head}</h1>
       <p>{body}</p>
 

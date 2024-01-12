@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SearchBar = () => {
+const SearchBar = ({ handleSearch }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [searchData, setSearchData] = useState({
+    "search-notes": "",
+  });
 
   function handleClear() {
-    const searchBar = document.getElementById("search-notes");
-
-    if (!searchBar.value) {
-      return;
-    }
-
-    searchBar.value = "";
+    setSearchData({
+      "search-notes": "",
+    });
   }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setSearchData((prevSearchData) => {
+      return {
+        ...prevSearchData,
+        [name]: value,
+      };
+    });
+  }
+
+  useEffect(() => {
+    handleSearch(searchData["search-notes"]);
+  }, [searchData]);
 
   return (
     <div className="search-bar">
@@ -27,6 +41,8 @@ const SearchBar = () => {
         placeholder="Search notes"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        onChange={handleChange}
+        value={searchData["search-notes"]}
       />
       <button
         type="button"

@@ -167,20 +167,6 @@ header {
   border: 1px solid var(--stroke);
 }
 
-.note.highlight {
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0% {
-    background-color: #615600;
-  }
-
-  100% {
-    background-color: transparent;
-  }
-}
-
 .note > p {
   margin-block-start: 1.25rem;
 }

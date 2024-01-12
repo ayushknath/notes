@@ -16,21 +16,32 @@ import LogoMobile from "./assets/logo-mobile.svg";
 const App = () => {
   const [createNote, setCreateNote] = useState(false);
   const [sendNoteId, setSendNoteId] = useState(undefined);
+  const [matchingNotes, setMatchingNotes] = useState([]);
 
   const storedNotes = localStorage.getItem("notes");
   const notes = storedNotes ? JSON.parse(storedNotes) : [];
   const [notesQuantity, setNotesQuantity] = useState(notes.length);
-  const noteGrid = notes.map((note) => (
-    <Note
-      key={note.id}
-      id={note.id}
-      head={note.head}
-      body={note.body}
-      edit={editNote}
-      noteDelete={deleteNote}
-      highlight={note.highlight}
-    />
-  ));
+  const noteGrid = matchingNotes.length
+    ? matchingNotes.map((note) => (
+        <Note
+          key={note.id}
+          id={note.id}
+          head={note.head}
+          body={note.body}
+          edit={editNote}
+          noteDelete={deleteNote}
+        />
+      ))
+    : notes.map((note) => (
+        <Note
+          key={note.id}
+          id={note.id}
+          head={note.head}
+          body={note.body}
+          edit={editNote}
+          noteDelete={deleteNote}
+        />
+      ));
 
   function saveNote(noteId = undefined) {
     const noteObj = {};
@@ -41,6 +52,7 @@ const App = () => {
       noteObj.id = notes.length + 1;
       noteObj.head = noteHead;
       noteObj.body = noteBody;
+
       notes.push(noteObj);
       setNotesQuantity(notes.length);
     } else {
@@ -84,6 +96,18 @@ const App = () => {
     setNotesQuantity(updatedNotes.length);
   }
 
+  function searchNote(searchTerm) {
+    if (!searchTerm) {
+      setMatchingNotes([]);
+      return;
+    }
+
+    const matchingNotes = notes.filter((note) => {
+      return note.head.includes(searchTerm) || note.body.includes(searchTerm);
+    });
+    setMatchingNotes([...matchingNotes]);
+  }
+
   return (
     <>
       <header>
@@ -91,7 +115,7 @@ const App = () => {
           <img src={LogoMobile} alt="Notes logo" />
         </div>
 
-        <SearchBar />
+        <SearchBar handleSearch={searchNote} />
       </header>
 
       <main id="note-section">
