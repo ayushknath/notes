@@ -1,28 +1,11 @@
-const CreateNote = ({ save, noteId }) => {
-  return (
-    <div id="create-note">
-      <input
-        type="text"
-        name="note-header"
-        id="note-header"
-        placeholder="Heading"
-      />
-      <textarea
-        name="note-body"
-        id="note-body"
-        placeholder="Your note..."
-      ></textarea>
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-      <div className="note-actions create-actions">
-        <button
-          type="button"
-          className="save-note"
-          onClick={() => save(noteId)}
-        >
-          Save
-        </button>
-      </div>
-    </div>
+const CreateNote = () => {
+  return (
+    <button className="create-note">
+      <FontAwesomeIcon icon="fas fa-pen" />
+      Write a note
+    </button>
   );
 };
 
