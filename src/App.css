@@ -12,6 +12,7 @@
   --bg-searchBar: #4f4f4f;
   --text-searchBar: #9a9a9a;
   --stroke-focusVisible: #e1bd00;
+  --color-accent: #e1bd00;
   --br-core: 0.5rem;
   --ff: "DM Sans", sans-serif;
 }
@@ -36,7 +37,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--stroke-focusVisible);
+  box-shadow: 0 0 0 4px var(--stroke-focusVisible);
 }
 
 header {
@@ -103,10 +104,14 @@ header {
 
 .notes-grid {
   max-width: 881.6px;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 2rem;
+}
+
+.notes-grid-empty {
+  text-align: center;
 }
 
 .note {
@@ -167,13 +172,77 @@ header {
   transform: scale(0.96);
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.note-input-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  padding: 1.75rem 1.5rem;
+  border-radius: var(--br-core);
+  border: 1px solid var(--stroke-core);
+  background-color: var(--bg-core);
+}
+
+.note-input-modal > input,
+.note-input-modal > textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: white;
+  background-color: transparent;
+}
+
+.note-input-modal > input {
+  font-size: 18.72px;
+  font-weight: bold;
+}
+
+.note-input-modal > textarea {
+  resize: vertical;
+  height: 6rem;
+}
+
+.note-input-modal .note-actions {
+  opacity: 1;
+  gap: 0;
+  transition: none;
+}
+
+.note-input-modal .note-actions button {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-accent);
+}
+
+.note-input-modal .note-actions button:focus-visible {
+  --stroke-focusVisible: rgb(255, 248, 214);
+}
+
 /* Media queries */
-@media (max-width: 425px) {
+@media (max-width: 768px) {
   header {
     justify-content: space-between;
-    gap: 2rem;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
+  }
+
+  .notes-grid {
+    gap: 1rem;
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (max-width: 425px) {
+  header {
+    gap: 2rem;
   }
 
   .logo {
@@ -184,8 +253,7 @@ header {
     width: 90vw;
   }
 
-  .notes-grid {
-    gap: 1rem;
-    padding-inline: 0.75rem;
+  .note-input-modal {
+    width: 90vw;
   }
 }

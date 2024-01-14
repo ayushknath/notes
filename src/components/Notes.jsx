@@ -1,76 +1,30 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Notes = () => {
+const Notes = ({ notes, updateNote, deleteNote }) => {
   return (
     <section className="notes-grid">
-      <div className="note">
-        <h3>Note header</h3>
-        <p>Note body</p>
+      {notes.length ? (
+        notes.map((note) => (
+          <div key={note.id} className="note">
+            <h3>{note.noteTitle}</h3>
+            <p>{note.noteBody}</p>
 
-        <div className="note-actions">
-          <button className="note-delete">
-            <FontAwesomeIcon icon="fas fa-trash" />
-          </button>
-          <button className="note-edit">
-            <FontAwesomeIcon icon="fas fa-pen" />
-          </button>
-        </div>
-      </div>
-      <div className="note">
-        <h3>Note header</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ex
-          suscipit tenetur porro omnis ut voluptates magnam illo? Animi, in!
-        </p>
-
-        <div className="note-actions">
-          <button className="note-delete">
-            <FontAwesomeIcon icon="fas fa-trash" />
-          </button>
-          <button className="note-edit">
-            <FontAwesomeIcon icon="fas fa-pen" />
-          </button>
-        </div>
-      </div>
-      <div className="note">
-        <h3>Note header</h3>
-        <p>Note body</p>
-
-        <div className="note-actions">
-          <button className="note-delete">
-            <FontAwesomeIcon icon="fas fa-trash" />
-          </button>
-          <button className="note-edit">
-            <FontAwesomeIcon icon="fas fa-pen" />
-          </button>
-        </div>
-      </div>
-      <div className="note">
-        <h3>Note header</h3>
-        <p>Note body</p>
-
-        <div className="note-actions">
-          <button className="note-delete">
-            <FontAwesomeIcon icon="fas fa-trash" />
-          </button>
-          <button className="note-edit">
-            <FontAwesomeIcon icon="fas fa-pen" />
-          </button>
-        </div>
-      </div>
-      <div className="note">
-        <h3>Note header</h3>
-        <p>Note body</p>
-
-        <div className="note-actions">
-          <button className="note-delete">
-            <FontAwesomeIcon icon="fas fa-trash" />
-          </button>
-          <button className="note-edit">
-            <FontAwesomeIcon icon="fas fa-pen" />
-          </button>
-        </div>
-      </div>
+            <div className="note-actions">
+              <button
+                className="note-delete"
+                onClick={() => deleteNote(note.id)}
+              >
+                <FontAwesomeIcon icon="fas fa-trash" />
+              </button>
+              <button className="note-edit" onClick={() => updateNote(note.id)}>
+                <FontAwesomeIcon icon="fas fa-pen" />
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p className="notes-grid-empty">No notes present</p>
+      )}
     </section>
   );
 };
